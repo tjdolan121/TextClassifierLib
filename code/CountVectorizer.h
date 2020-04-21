@@ -8,6 +8,7 @@
 #include <set>
 #include <algorithm>
 #include <fstream>
+#include <sstream>
 #include "GlobalData.h"
 
 using namespace std;
@@ -27,7 +28,7 @@ public:
 
   int analyze(string sentence);
 
-  void train();
+  void fit(string abs_filepath_to_features, string abs_filepath_to_data);
 
   float getWeight(vector<string> sentence_);
 

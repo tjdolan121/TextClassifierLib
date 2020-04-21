@@ -94,6 +94,7 @@ TEST_F(test_CountVectorizer, buildSentenceVectorNoStopWords) {
 	string test_sentence = "This is my test sentence!";
 	vector<string> expected1 = {"test", "sentence", "!"};
 	ASSERT_EQ(myCV.buildSentenceVector(test_sentence), expected1);
+
 }
 
 
@@ -113,12 +114,9 @@ TEST_F(test_CountVectorizer, addSentence) {
 TEST_F(test_CountVectorizer, getWeight) {
 	CountVectorizer myCV(true, true);
 	string test_sentence1 = "This is my first sentence!";
-	// vector<int> expected1 = {1, 1, 1, 1, 1, 1};
 	string test_sentence2 = "what is going on";
-	// vector<int> expected2 = {0, 1, 0, 0, 0, 0, 1, 1, 1};
 	myCV.addSentence(test_sentence1, true);
 	myCV.addSentence(test_sentence2, false);
-	
 	ASSERT_EQ(myCV.getWeight({"This", "is", "going"}), 0.5);
 }
 
@@ -129,13 +127,22 @@ TEST_F(test_CountVectorizer, is_wordInSentence) {
 	ASSERT_EQ(myCV.is_wordInSentence(*(myCV.getSentence(0)), 2), 1);
 }
 
+TEST_F(test_CountVectorizer, fit) {
+	CountVectorizer myCV(true, true);
+	MyGlobalVars vars;
+	vector<int> expected1 = {1, 1, 1, 1, 1, 1};
+	vector<int> expected2 = {0, 1, 0, 0, 0, 0, 1, 1, 1, 1};
+	myCV.fit(vars.features_file, vars.labels_file);
+	ASSERT_EQ(myCV.getSentence(0)->sentence_array, expected1);
+	ASSERT_EQ(myCV.getSentence(1)->sentence_array, expected2);
+	ASSERT_TRUE(myCV.getSentence(0)->label);
+	ASSERT_FALSE(myCV.getSentence(1)->label);
+}
+
 TEST_F(test_CountVectorizer, fullScopeTest) {
 	CountVectorizer myCV(false, true);
 	MyGlobalVars vars;
-	unsigned int data_volume = vars.features.size();
-	for (unsigned int i = 0; i < data_volume; i++) {
-		myCV.addSentence(vars.features[i], (bool) vars.labels[i]);
-	}
+	myCV.fit(vars.features_file, vars.labels_file);
 	ASSERT_EQ(myCV.analyze("The food was great. Loved it so much!"), vars.POS);
 	ASSERT_EQ(myCV.analyze("Just terrible, can't stand it. Won't go back"), vars.NEG);
 	ASSERT_EQ(myCV.analyze("THISISAMADEUPSENTENCE"), vars.UNK);

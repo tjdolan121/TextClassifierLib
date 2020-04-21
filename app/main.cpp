@@ -5,7 +5,9 @@ using namespace std;
 
 int main(){
     CountVectorizer myCV(false, true);
-    myCV.train();
+    string features = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/features.txt";
+    string labels = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/labels.txt";
+    myCV.fit(features, labels);
     return 0;
 }
 

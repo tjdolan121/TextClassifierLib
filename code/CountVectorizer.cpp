@@ -43,21 +43,48 @@ int CountVectorizer::analyze(string sentence) {
 // ======================ANALYSIS UTILITIES======================= |
 
 
-void CountVectorizer::train() {
+void CountVectorizer::fit(string abs_filepath_to_features, string abs_filepath_to_labels) {
     ifstream in;
+    string feature_output;
+    string label_output;
+    vector<string> features;
+    vector<bool> labels;
     
-    in.open("/home/jovyan/1_2270/Final_Project/CountVectorizer/data/features.txt");
+    in.open(abs_filepath_to_features);
 
     if(!in) {
-    cout << "Cannot open input file.\n";
+    cout << "ERROR: Cannot open features file.\n";
     return;
     }
 
-    string str;
-    while (getline(in, str)) {
-        std::cout << str << std::endl;
+
+    while (getline(in, feature_output)) {
+        features.push_back(feature_output);
     }
     in.close();
+
+    in.open(abs_filepath_to_labels);
+
+    if(!in) {
+    cout << "ERROR: Cannot open labels file.\n";
+    return;
+    }
+
+
+    while (getline(in, label_output)) {
+        labels.push_back((bool) std::stoi(label_output));
+    }
+    in.close();
+
+    unsigned int feature_size = features.size();
+    if (feature_size != labels.size()) {
+        cout << "ERROR: Feature dimension is different from label dimension\n";
+        return;
+    }
+    for (unsigned int i = 0; i < feature_size; i++) {
+        addSentence(features[i], labels[i]);
+    }
+
 }
 
 
