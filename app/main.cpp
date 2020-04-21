@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-    CountVectorizer myCV(false);
+    CountVectorizer myCV(false, true);
     myCV.train();
     return 0;
 }

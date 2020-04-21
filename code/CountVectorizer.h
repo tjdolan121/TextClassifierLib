@@ -20,7 +20,7 @@ struct Sentence {
 class CountVectorizer {
 public:
   // Constructor/Destructor
-  CountVectorizer(bool case_sensitive_);
+  CountVectorizer(bool case_sensitive_, bool include_stopwords_);
   ~CountVectorizer();
 
   // ===============PRIMARY FUNCTIONS =============== |
@@ -58,6 +58,7 @@ private:
   vector<string> word_array;
   vector< shared_ptr<Sentence> > sentences;
   bool case_sensitive;
+  bool include_stopwords;
 };
 
 

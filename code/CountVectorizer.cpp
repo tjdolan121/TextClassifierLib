@@ -5,8 +5,9 @@ using namespace std;
 // ======================CONSTRUCTORS======================= |
 
 
-CountVectorizer::CountVectorizer(bool case_sensitive_){
+CountVectorizer::CountVectorizer(bool case_sensitive_, bool include_stopwords_){
     case_sensitive = case_sensitive_;
+    include_stopwords = include_stopwords_;
 }
 
 CountVectorizer::~CountVectorizer() {
@@ -45,7 +46,7 @@ int CountVectorizer::analyze(string sentence) {
 void CountVectorizer::train() {
     ifstream in;
     
-    in.open("/app/trainingdata.txt");
+    in.open("/home/jovyan/1_2270/Final_Project/CountVectorizer/data/features.txt");
 
     if(!in) {
     cout << "Cannot open input file.\n";
@@ -148,33 +149,27 @@ bool CountVectorizer::CountVectorizerContainsWord(string word_to_check) {
 }
 
 vector<string> CountVectorizer::buildSentenceVector(string sentence_) {
+   MyGlobalVars vars;
    string new_word = "";
    vector<string> ret;
-   set<char> punctuation = {
-       '.', '!', '?', ',', '\'', '/', ';'
-       };
-//    set<string> stopWords = {
-//        "The", "the", "a", "A", "an", "An",
-//         "This", "this", "That", "that", "is",
-//          "Is", "my", "My"
-//        };
+
    for (char x : sentence_) {
        if (isupper(x) && !case_sensitive) {
            x = tolower(x);
        }
        if (x == ' ') {
-        //    if (stopWords.count(new_word)) {
-        //        new_word = "";   // Don't push back a stop word
-        //    }
-        //    else {
+           if (!include_stopwords && vars.stopWords.count(new_word)) {
+               new_word = "";
+           }
+           else {
                ret.push_back(new_word); 
                new_word = ""; 
-        //    }
+           }
        }
-       else if (punctuation.count(x)) {
+       else if (vars.punctuation.count(x)) {
            ret.push_back(new_word);
            string s(1, x);
-           ret.push_back(s);  // Ugly
+           ret.push_back(s);
            new_word = "";
        }
        else { 

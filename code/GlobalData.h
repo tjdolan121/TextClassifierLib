@@ -9,18 +9,32 @@ public:
    int NEG;
    int NEU;
    int UNK;
+   set<char> punctuation;
+   set<string> stopWords;
    vector<string> sent1;
    vector<string> sent2;
    vector<string> features;
    vector<bool> labels;
 
   MyGlobalVars(){
-     POS = 1;
-     NEG = 0;
-     NEU = -2;
-     UNK = 0;
+      POS = 1;
+      NEG = 0;
+      NEU = -2;
+      UNK = 0;
+
+      punctuation = {
+         '.', '!', '?', ',', '\'', '/', ';'
+      };
+
+      stopWords = {
+         "The", "the", "a", "A", "an", "An",
+         "This", "this", "That", "that", "is",
+         "Is", "my", "My"
+      };
+
      sent1 = {"This", "is", "my", "new", "sentence"};
      sent2 = {"this", "cat", "!"};
+     
      features = {
       "Wow... Loved this place.",
       "Crust is not good.",
