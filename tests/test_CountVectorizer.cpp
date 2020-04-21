@@ -33,14 +33,15 @@ protected:
 TEST_F(test_CountVectorizer, pushSentenceToWordArray){
 
     CountVectorizer caseSensitiveCV(true);
-	caseSensitiveCV.pushSentenceToWordArray(sent1);
+	MyGlobalVars vars;
+	caseSensitiveCV.pushSentenceToWordArray(vars.sent1);
     // | This | is | my | new | sentence |
 
     ASSERT_EQ(caseSensitiveCV.getWord(0), "This");
 	ASSERT_EQ(caseSensitiveCV.getWord(3), "new");
 	ASSERT_EQ(caseSensitiveCV.getSize(), 5);
 
-	caseSensitiveCV.pushSentenceToWordArray(sent2);
+	caseSensitiveCV.pushSentenceToWordArray(vars.sent2);
 	// | This | is | my | new | sentence | this | cat |
 
 	ASSERT_EQ(caseSensitiveCV.getWord(5), "this");
@@ -53,7 +54,8 @@ TEST_F(test_CountVectorizer, pushSentenceToWordArray){
 TEST_F(test_CountVectorizer, createSentenceObject){
 
     CountVectorizer caseSensitiveCV(true);
-	caseSensitiveCV.pushSentenceToWordArray(sent1);
+	MyGlobalVars vars;
+	caseSensitiveCV.pushSentenceToWordArray(vars.sent1);
     // | This | is | my | new | sentence |
 
 	shared_ptr<Sentence> newSent1;
@@ -121,11 +123,12 @@ TEST_F(test_CountVectorizer, is_wordInSentence) {
 
 TEST_F(test_CountVectorizer, fullScopeTest) {
 	CountVectorizer myCV(false);
-	unsigned int data_volume = features.size();
+	MyGlobalVars vars;
+	unsigned int data_volume = vars.features.size();
 	for (unsigned int i = 0; i < data_volume; i++) {
-		myCV.addSentence(features[i], (bool) labels[i]);
+		myCV.addSentence(vars.features[i], (bool) vars.labels[i]);
 	}
-	ASSERT_EQ(myCV.analyze("The food was great. Loved it so much!"), POS);
-	ASSERT_EQ(myCV.analyze("Just terrible, can't stand it. Won't go back"), NEG);
-	ASSERT_EQ(myCV.analyze("THISISAMADEUPSENTENCE"), UNK);
+	ASSERT_EQ(myCV.analyze("The food was great. Loved it so much!"), vars.POS);
+	ASSERT_EQ(myCV.analyze("Just terrible, can't stand it. Won't go back"), vars.NEG);
+	ASSERT_EQ(myCV.analyze("THISISAMADEUPSENTENCE"), vars.UNK);
 }

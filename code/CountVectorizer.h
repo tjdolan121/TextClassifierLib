@@ -8,18 +8,9 @@
 #include <set>
 #include <algorithm>
 #include <fstream>
+#include "GlobalData.h"
 
 using namespace std;
-
-extern int POS;
-extern int NEG;
-extern int NEU;
-extern int UNK;
-
-extern vector<string> sent1;
-extern vector<string> sent2;
-extern vector<string> features;
-extern vector<bool> labels;
 
 struct Sentence {
   vector<int> sentence_array;

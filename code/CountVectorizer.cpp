@@ -15,25 +15,26 @@ CountVectorizer::~CountVectorizer() {
 // ======================ANALYSIS FUNCTIONS======================= |
 
 int CountVectorizer::analyze(string sentence) {
+    MyGlobalVars vars;
     vector<string> processed_input;
     float weight = 0;
     processed_input = buildSentenceVector(sentence);
     weight = getWeight(processed_input);
     if (weight == -1) {
         cout << "Sorry, not enough data for this input." <<endl;
-        return UNK;
+        return vars.UNK;
     }
     else if (weight < .5) {
         cout << "This sentence has a negative sentiment." << endl;
-        return NEG;
+        return vars.NEG;
     }
     else if (weight > .5) {
         cout << "This sentence has a positive sentiment." << endl;
-        return POS;
+        return vars.POS;
     }
     else {
         cout << "This sentence has a neutral sentiment." << endl;
-        return NEU;
+        return vars.NEU;
     }
 }
 
