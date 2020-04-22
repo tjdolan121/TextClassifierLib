@@ -133,17 +133,21 @@ TEST_F(test_CountVectorizer, fit) {
 	vector<int> expected1 = {1, 1, 1, 1, 1, 1};
 	vector<int> expected2 = {0, 1, 0, 0, 0, 0, 1, 1, 1, 1};
 	myCV.fit(vars.features_file, vars.labels_file);
-	ASSERT_EQ(myCV.getSentence(0)->sentence_array, expected1);
-	ASSERT_EQ(myCV.getSentence(1)->sentence_array, expected2);
-	ASSERT_TRUE(myCV.getSentence(0)->label);
-	ASSERT_FALSE(myCV.getSentence(1)->label);
+	if (myCV.getSentence(0)) {
+		ASSERT_EQ(myCV.getSentence(0)->sentence_array, expected1);
+		ASSERT_EQ(myCV.getSentence(1)->sentence_array, expected2);
+		ASSERT_TRUE(myCV.getSentence(0)->label);
+		ASSERT_FALSE(myCV.getSentence(1)->label);
+	}
 }
 
 TEST_F(test_CountVectorizer, fullScopeTest) {
 	CountVectorizer myCV(false, true);
 	MyGlobalVars vars;
 	myCV.fit(vars.features_file, vars.labels_file);
-	ASSERT_EQ(myCV.analyze("The food was great. Loved it so much!"), vars.POS);
-	ASSERT_EQ(myCV.analyze("Just terrible, can't stand it. Won't go back"), vars.NEG);
-	ASSERT_EQ(myCV.analyze("THISISAMADEUPSENTENCE"), vars.UNK);
+	if (myCV.getSentence(0)) {
+		ASSERT_EQ(myCV.analyze("The food was great. Loved it so much!"), vars.POS);
+		ASSERT_EQ(myCV.analyze("Just terrible, can't stand it. Won't go back"), vars.NEG);
+		ASSERT_EQ(myCV.analyze("THISISAMADEUPSENTENCE"), vars.UNK);
+	}
 }

@@ -15,12 +15,16 @@ public:
    vector<string> sent2;
    string features_file;
    string labels_file;
+   bool local;
 
   MyGlobalVars(){
+
+     local = true;
       POS = 1;
       NEG = 0;
       NEU = -2;
       UNK = 0;
+
 
       punctuation = {
          '.', '!', '?', ',', '\'', '/', ';'
@@ -35,7 +39,13 @@ public:
      sent1 = {"This", "is", "my", "new", "sentence"};
      sent2 = {"this", "cat", "!"};
 
-     features_file = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/features.txt";
-     labels_file = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/labels.txt";
+      if (local) {
+         features_file = "/Users/thomasdolan/Desktop/1_Code/cpp_/DataStructuresCountVec/data/features.txt";
+         labels_file = "/Users/thomasdolan/Desktop/1_Code/cpp_/DataStructuresCountVec/data/labels.txt";
+      }
+      else {
+         features_file = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/features.txt";
+         labels_file = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/labels.txt";
+      }
    }
 };
