@@ -20,4 +20,4 @@ A CountVectorizer is an ADT from the popular ML library Scikit Learn.  In their 
 
 "Converts a collection of text documents to a matrix of token counts"
 
-![CountVectorizer] (static/CV.png "Count Vectorizer")
+![CountVectorizer](https://github.com/tjdolan121/DataStructuresCountVec/static/CV.png "Count Vectorizer")
