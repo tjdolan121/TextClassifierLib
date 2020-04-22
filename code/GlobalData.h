@@ -3,7 +3,8 @@
 
 using namespace std;
 
-class MyGlobalVars{
+class MyGlobalVars
+{
 public:
    int POS;
    int NEG;
@@ -17,33 +18,34 @@ public:
    string labels_file;
    bool local;
 
-  MyGlobalVars(){
+   MyGlobalVars()
+   {
 
-     local = true;
+      local = true;
       POS = 1;
       NEG = 0;
       NEU = -2;
       UNK = 0;
 
-
       punctuation = {
-         '.', '!', '?', ',', '\'', '/', ';'
-      };
+          '!', '?', '/'};
 
       stopWords = {
-         "The", "the", "a", "A", "an", "An",
-         "This", "this", "That", "that", "is",
-         "Is", "my", "My"
-      };
+          "The", "the", "a", "A", "an", "An",
+          "This", "this", "That", "that", "is",
+          "Is", "my", "My", ".", ":", ",", ";", "\'", ")"
+          "(", "..."};
 
-     sent1 = {"This", "is", "my", "new", "sentence"};
-     sent2 = {"this", "cat", "!"};
+      sent1 = {"This", "is", "my", "new", "sentence"};
+      sent2 = {"this", "cat", "!"};
 
-      if (local) {
+      if (local)
+      {
          features_file = "/Users/thomasdolan/Desktop/1_Code/cpp_/DataStructuresCountVec/data/features.txt";
          labels_file = "/Users/thomasdolan/Desktop/1_Code/cpp_/DataStructuresCountVec/data/labels.txt";
       }
-      else {
+      else
+      {
          features_file = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/features.txt";
          labels_file = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/labels.txt";
       }

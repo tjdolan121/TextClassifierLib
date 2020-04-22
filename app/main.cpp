@@ -3,20 +3,13 @@
 
 using namespace std;
 
-int main(){
+int main()
+{
     CountVectorizer myCV(false, true);
-    string features = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/features.txt";
-    string labels = "/home/jovyan/1_2270/Final_Project/CountVectorizer/data/labels.txt";
-    myCV.fit(features, labels);
+    MyGlobalVars vars;
+    myCV.fit(vars.features_file, vars.labels_file);
+    myCV.shape();
+    myCV.head();
+    myCV.analyze("I loved this place!");
     return 0;
 }
-
-
-
-    // CountVectorizer myCV(false);
-    // myCV.addSentence("bad awful terrible", 0);
-    // myCV.addSentence("great happy wonderful", 1);
-    // myCV.addSentence("horrible ugly negative", 0);
-    // myCV.addSentence("fantastic joyous bliss", 1);
-    // myCV.analyze("happy negative");
-    // return 0;

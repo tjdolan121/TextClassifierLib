@@ -6,3 +6,4 @@
 4. Review project proposal
 5. Update all tests
 6. Write a README
+7. Make helper methods private (gtest issue? Friend?)
