@@ -14,6 +14,7 @@ public:
    set<string> stopWords;
    vector<string> sent1;
    vector<string> sent2;
+   vector<string> sent3;
    string features_file;
    string labels_file;
    bool local;
@@ -38,6 +39,7 @@ public:
 
       sent1 = {"This", "is", "my", "new", "sentence"};
       sent2 = {"this", "cat", "!"};
+      sent3 = {"cake", "apple", "cake", "cake", "banana", "apple"};
 
       if (local)
       {

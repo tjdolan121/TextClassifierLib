@@ -33,38 +33,38 @@ protected:
 TEST_F(test_CountVectorizer, pushSentenceToWordArray)
 {
 
-	CountVectorizer caseSensitiveCV(true, true);
+	CountVectorizer myCV;
 	MyGlobalVars vars;
-	caseSensitiveCV.pushSentenceToWordArray(vars.sent1);
+	myCV.pushSentenceToWordArray(vars.sent1);
 	// | This | is | my | new | sentence |
 
-	ASSERT_EQ(caseSensitiveCV.getWord(0), "This");
-	ASSERT_EQ(caseSensitiveCV.getWord(3), "new");
-	ASSERT_EQ(caseSensitiveCV.getWordArraySize(), 5);
+	ASSERT_EQ(myCV.getWord(0), "This");
+	ASSERT_EQ(myCV.getWord(3), "new");
+	ASSERT_EQ(myCV.getWordArraySize(), 5);
 
-	caseSensitiveCV.pushSentenceToWordArray(vars.sent2);
+	myCV.pushSentenceToWordArray(vars.sent2);
 	// | This | is | my | new | sentence | this | cat |
 
-	ASSERT_EQ(caseSensitiveCV.getWord(5), "this");
-	ASSERT_EQ(caseSensitiveCV.getWord(6), "cat");
-	ASSERT_EQ(caseSensitiveCV.getWord(7), "!");
-	ASSERT_EQ(caseSensitiveCV.getWordArraySize(), 8);
+	ASSERT_EQ(myCV.getWord(5), "this");
+	ASSERT_EQ(myCV.getWord(6), "cat");
+	ASSERT_EQ(myCV.getWord(7), "!");
+	ASSERT_EQ(myCV.getWordArraySize(), 8);
 }
 
 TEST_F(test_CountVectorizer, createSentenceObject)
 {
 
-	CountVectorizer caseSensitiveCV(true, true);
+	CountVectorizer myCV;
 	MyGlobalVars vars;
-	caseSensitiveCV.pushSentenceToWordArray(vars.sent1);
+	myCV.pushSentenceToWordArray(vars.sent1);
 	// | This | is | my | new | sentence |
 
 	shared_ptr<Sentence> newSent1;
-	newSent1 = caseSensitiveCV.createSentenceObject({"my", "sentence"}, false);
+	newSent1 = myCV.createSentenceObject({"my", "sentence"}, false);
 	// sentence array = | 0 | 0 | 1 | 0 | 1 |   label = false
 
 	shared_ptr<Sentence> newSent2;
-	newSent2 = caseSensitiveCV.createSentenceObject({"This", "is", "my", "sentence"}, true);
+	newSent2 = myCV.createSentenceObject({"This", "is", "my", "sentence"}, true);
 	// sentence array = | 1 | 1 | 1 | 0 | 1 |   label = true
 
 	vector<int> sent1Expected = {0, 0, 1, 0, 1};
@@ -75,15 +75,26 @@ TEST_F(test_CountVectorizer, createSentenceObject)
 	ASSERT_TRUE(newSent2->label);
 }
 
+TEST_F(test_CountVectorizer, createSentenceObjectBinaryFalse)
+{
+	CountVectorizer myCV(false, true, true);
+	MyGlobalVars vars;
+	myCV.pushSentenceToWordArray(vars.sent3);
+	shared_ptr<Sentence> newSent1;
+	newSent1 = myCV.createSentenceObject(vars.sent3, true);
+	vector<int> sent1Expected = {3, 2, 1};
+	ASSERT_EQ(newSent1->sentence_array, sent1Expected);
+}
+
 TEST_F(test_CountVectorizer, buildSentenceVector)
 {
-	CountVectorizer myCV(true, true);
+	CountVectorizer myCV;
 
 	string test_sentence = "This is my test sentence!";
 	vector<string> expected1 = {"This", "is", "my", "test", "sentence", "!"};
 	ASSERT_EQ(myCV.buildSentenceVector(test_sentence), expected1);
 
-	CountVectorizer myCaseInsCV(false, true);
+	CountVectorizer myCaseInsCV(true, false, true);
 
 	vector<string> expected2 = {"this", "is", "my", "test", "sentence", "!"};
 	ASSERT_EQ(myCaseInsCV.buildSentenceVector(test_sentence), expected2);
@@ -91,7 +102,7 @@ TEST_F(test_CountVectorizer, buildSentenceVector)
 
 TEST_F(test_CountVectorizer, buildSentenceVectorNoStopWords)
 {
-	CountVectorizer myCV(true, false);
+	CountVectorizer myCV(true, true, false);
 
 	string test_sentence = "This is my test sentence!";
 	vector<string> expected1 = {"test", "sentence", "!"};
@@ -100,7 +111,7 @@ TEST_F(test_CountVectorizer, buildSentenceVectorNoStopWords)
 
 TEST_F(test_CountVectorizer, addSentence)
 {
-	CountVectorizer myCV(true, true);
+	CountVectorizer myCV;
 	string test_sentence1 = "This is my first sentence!";
 	vector<int> expected1 = {1, 1, 1, 1, 1, 1};
 	string test_sentence2 = "what is going on";
@@ -114,7 +125,7 @@ TEST_F(test_CountVectorizer, addSentence)
 
 TEST_F(test_CountVectorizer, getWeight)
 {
-	CountVectorizer myCV(true, true);
+	CountVectorizer myCV;
 	string test_sentence1 = "This is my first sentence!";
 	string test_sentence2 = "what is going on";
 	myCV.addSentence(test_sentence1, true);
@@ -124,7 +135,7 @@ TEST_F(test_CountVectorizer, getWeight)
 
 TEST_F(test_CountVectorizer, is_wordInSentence)
 {
-	CountVectorizer myCV(true, true);
+	CountVectorizer myCV;
 	string test_sentence1 = "This is my first sentence!";
 	myCV.addSentence(test_sentence1, false);
 	ASSERT_EQ(myCV.is_wordInSentence(*(myCV.getSentence(0)), 2), 1);
@@ -132,7 +143,7 @@ TEST_F(test_CountVectorizer, is_wordInSentence)
 
 TEST_F(test_CountVectorizer, fit)
 {
-	CountVectorizer myCV(true, true);
+	CountVectorizer myCV;
 	MyGlobalVars vars;
 	vector<int> expected1 = {1, 1, 1, 1};
 	vector<int> expected2 = {0, 0, 0, 0, 1, 1, 1, 1};
@@ -148,7 +159,7 @@ TEST_F(test_CountVectorizer, fit)
 
 TEST_F(test_CountVectorizer, fullScopeTest)
 {
-	CountVectorizer myCV(false, true);
+	CountVectorizer myCV(true, false, true);
 	MyGlobalVars vars;
 	myCV.fit(vars.features_file, vars.labels_file);
 	if (myCV.getSentence(0))

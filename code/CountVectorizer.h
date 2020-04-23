@@ -29,7 +29,7 @@ public:
   CountVectorizer();
 
   // And another which allows the user to choose their options:
-  CountVectorizer(bool case_sensitive_, bool include_stopwords_);
+  CountVectorizer(bool binary_, bool case_sensitive_, bool include_stopwords_);
 
   // Destructor:
   ~CountVectorizer();
@@ -97,6 +97,7 @@ public:
 private:
   vector<string> word_array;
   vector<shared_ptr<Sentence>> sentences;
+  bool binary;
   bool case_sensitive;
   bool include_stopwords;
 };

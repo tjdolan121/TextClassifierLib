@@ -8,12 +8,14 @@ using namespace std;
 
 CountVectorizer::CountVectorizer()
 {
+    binary = true;
     case_sensitive = true;
     include_stopwords = true;
 }
 
-CountVectorizer::CountVectorizer(bool case_sensitive_, bool include_stopwords_)
+CountVectorizer::CountVectorizer(bool binary_, bool case_sensitive_, bool include_stopwords_)
 {
+    binary = binary_;
     case_sensitive = case_sensitive_;
     include_stopwords = include_stopwords_;
 }
@@ -118,14 +120,18 @@ void CountVectorizer::head()
 {
     int count = 0;
     unsigned int wordArraySize = getWordArraySize();
-    if (wordArraySize > 10) {
+    if (wordArraySize > 10)
+    {
         wordArraySize = 10;
     }
     cout << "------------------------------" << endl;
     cout << "Current CountVectorizer Head:" << endl;
-    for (unsigned int i = 0; i < wordArraySize; i++) {
-        for (auto sentence:sentences) {
-            if (is_wordInSentence(*sentence, i)) {
+    for (unsigned int i = 0; i < wordArraySize; i++)
+    {
+        for (auto sentence : sentences)
+        {
+            if (is_wordInSentence(*sentence, i))
+            {
                 count++;
             }
         }
@@ -204,10 +210,17 @@ shared_ptr<Sentence> CountVectorizer::createSentenceObject(vector<string> new_se
     unsigned int word_array_size = getWordArraySize();
     for (unsigned int i = 0; i < word_array_size; i++)
     {
-        if (std::find(new_sentence_vector.begin(),
-                      new_sentence_vector.end(), word_array[i]) != new_sentence_vector.end())
+        int count_ = count(new_sentence_vector.begin(), new_sentence_vector.end(), word_array[i]);
+        if (count_)
         {
-            new_sentence->sentence_array.push_back(1);
+            if (binary)
+            {
+                new_sentence->sentence_array.push_back(1);
+            }
+            else
+            {
+                new_sentence->sentence_array.push_back(count_);
+            }
         }
         else
         {
