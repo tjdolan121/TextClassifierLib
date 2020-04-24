@@ -36,12 +36,6 @@ public:
 
   // ======================USER INTERFACE FUNCTIONS==================|
 
-  // Analyze will analyze the sentiment of a sentence given by the user.
-  // It should be called on a well-populated CV for best results.  It will
-  // print the sentiment and return an integer representing the sentiment
-  // (used for testing/extensability):
-  int analyze(string sentence);
-
   // Fit will add additional (labeled) data to a CV object.  User must
   // provide an absolute filepath to the features and an absolute file-
   // path to the labels:
@@ -54,17 +48,6 @@ public:
   void head();
 
   // ======================HELPERS===================================|
-
-  // GetWeight takes a sentence and compares it to the sentences in
-  // the CV object. It does this by averaging out the sentiment weight
-  // of each individual word in the sentence. The sentiment weight of a word is
-  // calculated as how many times the word is present in positive sentences
-  // divided by how many times the word is present in all sentences.
-  // Weight should be a float between 0 and 1, with values less than
-  // .5 being "negative sentiment", values greater than .5 being "positive sentiment",
-  // values equal to .5 being "neutral sentiment" and values of -1 indicating that
-  // no words from the inputted sentence were present in the CV object:
-  float getWeight(vector<string> sentence_);
 
   // Checks if a word is in the sentence.  Returns an integer casted bool:
   int is_wordInSentence(Sentence sentence_, unsigned int idx);
@@ -93,6 +76,15 @@ public:
   shared_ptr<Sentence> getSentence(int idx) { return sentences[idx]; }
   unsigned int getWordArraySize() { return word_array.size(); }
   unsigned int getSentenceCount() { return sentences.size(); }
+
+  // Private attribute setter functions:
+  void setBinary(bool bool_) { binary = bool_; }
+  void setCaseSensitive(bool bool_) { case_sensitive = bool_; }
+  void setIncludeStopWords(bool bool_) { include_stopwords = bool_; } // FIX ME!!!!!!!!
+
+  friend class BaseClassifier;
+  friend class SimpleClassifier;
+  friend class NaiveBayesClassifier;
 
 private:
   vector<string> word_array;

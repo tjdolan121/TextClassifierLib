@@ -123,16 +123,6 @@ TEST_F(test_CountVectorizer, addSentence)
 	ASSERT_EQ(myCV.getSentence(1)->sentence_array, expected2);
 }
 
-TEST_F(test_CountVectorizer, getWeight)
-{
-	CountVectorizer myCV;
-	string test_sentence1 = "This is my first sentence!";
-	string test_sentence2 = "what is going on";
-	myCV.addSentence(test_sentence1, true);
-	myCV.addSentence(test_sentence2, false);
-	ASSERT_EQ(myCV.getWeight({"This", "is", "going"}), 0.5);
-}
-
 TEST_F(test_CountVectorizer, is_wordInSentence)
 {
 	CountVectorizer myCV;
@@ -154,18 +144,5 @@ TEST_F(test_CountVectorizer, fit)
 		ASSERT_EQ(myCV.getSentence(1)->sentence_array, expected2);
 		ASSERT_TRUE(myCV.getSentence(0)->label);
 		ASSERT_FALSE(myCV.getSentence(1)->label);
-	}
-}
-
-TEST_F(test_CountVectorizer, fullScopeTest)
-{
-	CountVectorizer myCV(true, false, true);
-	MyGlobalVars vars;
-	myCV.fit(vars.features_file, vars.labels_file);
-	if (myCV.getSentence(0))
-	{
-		ASSERT_EQ(myCV.analyze("The food was great. Loved it so much!"), vars.POS);
-		ASSERT_EQ(myCV.analyze("Just terrible, can't stand it. Won't go back"), vars.NEG);
-		ASSERT_EQ(myCV.analyze("THISISAMADEUPSENTENCE"), vars.UNK);
 	}
 }

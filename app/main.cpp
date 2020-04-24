@@ -1,15 +1,14 @@
 #include <iostream>
-#include "../code/CountVectorizer.h"
+#include "../code/SimpleClassifier.h"
 
 using namespace std;
 
 int main()
 {
-    CountVectorizer myCV(true, false, true);
+    SimpleClassifier bc;
     MyGlobalVars vars;
-    myCV.fit(vars.features_file, vars.labels_file);
-    myCV.shape();
-    myCV.head();
-    myCV.analyze("I loved this place!");
+    bc.fit(vars.features_file, vars.labels_file);
+    bc.shape();
+    bc.analyze("This is great good");
     return 0;
 }
