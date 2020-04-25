@@ -1,6 +1,7 @@
 # exclude everything
 build/*
 ipch
+.DS_Store
 
 # exception to the rule
 !build/.gitkeep 
