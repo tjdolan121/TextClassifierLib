@@ -21,6 +21,8 @@ public:
 private:
     float smoothing_param_m = 1.0;
     float smoothing_param_p = 0.5;
+    string true_meaning;
+    string false_meaning;
 };
 
 #endif // NAIVEBAYESCLASSIFIER_H__

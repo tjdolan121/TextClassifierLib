@@ -8,3 +8,5 @@
 
 
 2. Build a occurances per label function
+
+3. True meaning/false meaning
