@@ -35,3 +35,5 @@ The CountVectorizer readily pairs with any number of classification algorithms. 
 The CountVectorizer is a standalone class that is only concerned with holding the data.  The classifiers inherit from a base classifier to reduce redundancy.
 
 ![Structure](static/structure.jpeg "Structure")
+
+NOTE: This is part of a dataset that was created for the Paper 'From Group to Individual Labels using Deep Features', Kotzias et. al,. KDD 2015
