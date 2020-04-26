@@ -8,7 +8,7 @@ using namespace std;
 
 class BaseClassifier
 {
-public:
+public:  // protected
     BaseClassifier();
     ~BaseClassifier();
     void fit(string abs_filepath_to_features, string abs_filepath_to_labels);

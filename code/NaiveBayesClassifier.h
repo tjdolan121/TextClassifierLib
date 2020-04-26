@@ -4,7 +4,7 @@
 #include <cmath>
 #include "BaseClassifier.h"
 
-class NaiveBayesClassifier : public BaseClassifier
+class NaiveBayesClassifier : public BaseClassifier // Protected
 {
 public:
     NaiveBayesClassifier();

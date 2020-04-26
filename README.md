@@ -1,23 +1,37 @@
 # Sentiment Analysis with CountVectorizer
 
 ## Project Goals
-1. To implement the ADT CountVectorizer
- * Knowing only the usage of CV, implement an efficient data structure
- * Incorporate a common use application for the data structure
-2. To further familiarize myself with TDD
- * And obey the testing goat...
-3. To write industry-quality code
- * Proper syntax, best practices, efficient
-
- ### Note on Project Goals:
- The CountVectorizer is a data structure that is not limited to the functionality of what I built.
- If my only goal were to do simple sentiment analysis, a more efficient data structure could have been
- built.
+1. To creatively implement a general-purpose text classifier
+2. To write code with sound object-oriented design
+3. To learn TDD
 
 ## Project Overview:
-##### What is a CountVectorizer?
-A CountVectorizer is an ADT from the popular ML library Scikit Learn.  In their words, a CountVectorizer:
 
-"Converts a collection of text documents to a matrix of token counts"
+### Usage
 
-![CountVectorizer](static/CV.png "Count Vectorizer")
+![Usage](static/usage.jpeg "Usage")
+
+### What is a CountVectorizer?
+A CountVectorizer is an text-storage data structure from the popular ML library Scikit Learn. In their words, a CountVectorizer:  "Converts a collection of text documents to a matrix of token counts"  [source](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html)
+
+Conceptually, it looks something like this:
+
+![CountVectorizer](static/conceptually.jpeg "Count Vectorizer")
+
+### How is it implemented?
+
+My implementation has a word array as a header, and a vector of pointers to sentences:
+
+![Implementation](static/implementation.jpeg "Implementation")
+
+### How can it be used for text classification?
+
+The CountVectorizer readily pairs with any number of classification algorithms.  As of the time of this writing, two algorithms have been built: a simple weighted average classifier and a Bayesian classifier (inspired from scikit learn's NaiveBayes model). [source](https://scikit-learn.org/stable/modules/naive_bayes.html)
+
+![algo](static/algo.jpeg "algo")
+
+### How is the code structured?
+
+The CountVectorizer is a standalone class that is only concerned with holding the data.  The classifiers inherit from a base classifier to reduce redundancy.
+
+![Structure](static/structure.jpeg "Structure")

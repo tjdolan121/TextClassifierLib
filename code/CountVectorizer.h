@@ -78,7 +78,7 @@ public:
   unsigned int getSentenceCount() { return sentences.size(); }
 
   // Private attribute setter functions:
-  void setBinary(bool bool_) { binary = bool_; }
+  void setBinary(bool bool_) { binary = bool_; }  // protected
   void setCaseSensitive(bool bool_) { case_sensitive = bool_; }
   void setIncludeStopWords(bool bool_) { include_stopwords = bool_; } // FIX ME!!!!!!!!
 
@@ -87,7 +87,7 @@ public:
   friend class NaiveBayesClassifier;
 
 private:
-  vector<string> word_array;
+  vector<string> word_array;  // Make protected (all)
   vector<shared_ptr<Sentence>> sentences;
   bool binary;
   bool case_sensitive;
