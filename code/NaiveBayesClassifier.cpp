@@ -1,7 +1,9 @@
 #include "NaiveBayesClassifier.h"
 
-NaiveBayesClassifier::NaiveBayesClassifier()
+NaiveBayesClassifier::NaiveBayesClassifier(string true_label_meaning_, string false_label_meaning_)
 {
+    true_label_meaning = true_label_meaning_;
+    false_label_meaning = false_label_meaning_;
     CV.setBinary(false);
     CV.setCaseSensitive(false);
     CV.setIncludeStopWords(false);
@@ -112,17 +114,17 @@ int NaiveBayesClassifier::analyze(string sentence)
     float falseWeight = getWeight(processed_input, false);
     if (trueWeight < falseWeight)
     {
-        cout << "This sentence has a negative sentiment." << endl;
+        cout << false_label_meaning << endl;
         return vars.NEG;
     }
     else if (trueWeight > falseWeight)
     {
-        cout << "This sentence has a positive sentiment." << endl;
+        cout << true_label_meaning << endl;
         return vars.POS;
     }
     else
     {
-        cout << "This sentence has a neutral sentiment." << endl;
+        cout << "neutral" << endl;
         return vars.NEU;
     }
 }

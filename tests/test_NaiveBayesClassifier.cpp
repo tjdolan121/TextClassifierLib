@@ -32,7 +32,7 @@ protected:
 
 TEST_F(test_NaiveBayesClassifier, totalWords)
 {
-    NaiveBayesClassifier myBayes;
+    NaiveBayesClassifier myBayes("positive", "negative");
     myBayes.CV.addSentence("random monkey string funky", true);
     myBayes.CV.addSentence("another funky report", false);
     int ttl = myBayes.totalWords();
@@ -41,7 +41,7 @@ TEST_F(test_NaiveBayesClassifier, totalWords)
 
 TEST_F(test_NaiveBayesClassifier, totalWordsOfType)
 {
-    NaiveBayesClassifier myBayes;
+    NaiveBayesClassifier myBayes("positive", "negative");
     myBayes.CV.addSentence("random monkey string funky", true);
     myBayes.CV.addSentence("another funky report", false);
     int ttl_true = myBayes.totalWordsOfType(true);
@@ -52,7 +52,7 @@ TEST_F(test_NaiveBayesClassifier, totalWordsOfType)
 
 TEST_F(test_NaiveBayesClassifier, pOfType)
 {
-    NaiveBayesClassifier myBayes;
+    NaiveBayesClassifier myBayes("positive", "negative");
     myBayes.CV.addSentence("random monkey string can if they same", true);
     myBayes.CV.addSentence("another funky report", false);
     float p_true = myBayes.pOfType(true);
@@ -66,7 +66,7 @@ TEST_F(test_NaiveBayesClassifier, pOfType)
 
 TEST_F(test_NaiveBayesClassifier, countOccurances)
 {
-    NaiveBayesClassifier myBayes;
+    NaiveBayesClassifier myBayes("positive", "negative");
     myBayes.CV.addSentence("random monkey random day", true);
     myBayes.CV.addSentence("another funky random", false);
     ASSERT_EQ(myBayes.countOccurances("random"), 3);
@@ -77,10 +77,9 @@ TEST_F(test_NaiveBayesClassifier, countOccurances)
 
 TEST_F(test_NaiveBayesClassifier, fullScopeTest)
 {
-	NaiveBayesClassifier myBayes;
+	NaiveBayesClassifier myBayes("positive", "negative");
 	MyGlobalVars vars;
 	myBayes.fit(vars.features_file, vars.labels_file);
-    cout << "loved " << myBayes.countOccurances("loved") << endl;
 	if (myBayes.CV.getSentence(0))
 	{
 		ASSERT_EQ(myBayes.analyze("The food was great. Loved it so much!"), vars.POS);

@@ -10,7 +10,7 @@ public:
     // binary = true
     // caseSensitive = false
     // includeStopWords = false
-    SimpleClassifier();
+    SimpleClassifier(string true_label_meaning_, string false_label_meaning_);
     ~SimpleClassifier();
 
     // Analyze will analyze the sentiment of a sentence given by the user.

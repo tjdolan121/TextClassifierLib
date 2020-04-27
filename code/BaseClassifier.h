@@ -15,6 +15,8 @@ public:  // protected
     void shape();
     void head();
     CountVectorizer CV;
+    string true_label_meaning;
+    string false_label_meaning;
 };
 
 #endif // BASECLASSIFIER_H__

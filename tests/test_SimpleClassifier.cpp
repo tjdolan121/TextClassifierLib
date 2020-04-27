@@ -32,7 +32,7 @@ protected:
 
 TEST_F(test_SimpleClassifier, getWeight)
 {
-	SimpleClassifier mySimple;
+	SimpleClassifier mySimple("positive", "negative");
 	string test_sentence1 = "random";
 	string test_sentence2 = "superman";
 	mySimple.CV.addSentence(test_sentence1, true);
@@ -42,7 +42,7 @@ TEST_F(test_SimpleClassifier, getWeight)
 
 TEST_F(test_SimpleClassifier, fullScopeTest)
 {
-	SimpleClassifier mySimple;
+	SimpleClassifier mySimple("positive", "negative");
 	MyGlobalVars vars;
 	mySimple.fit(vars.features_file, vars.labels_file);
 	if (mySimple.CV.getSentence(0))

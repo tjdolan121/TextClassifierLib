@@ -1,7 +1,9 @@
 #include "SimpleClassifier.h"
 
-SimpleClassifier::SimpleClassifier()
+SimpleClassifier::SimpleClassifier(string true_label_meaning_, string false_label_meaning_)
 {
+    true_label_meaning = true_label_meaning_;
+    false_label_meaning = false_label_meaning_;
     CV.setBinary(true);
     CV.setCaseSensitive(false);
     CV.setIncludeStopWords(false);
@@ -25,17 +27,17 @@ int SimpleClassifier::analyze(string sentence)
     }
     else if (weight < .5)
     {
-        cout << "This sentence has a negative sentiment." << endl;
+        cout << false_label_meaning << endl;
         return vars.NEG;
     }
     else if (weight > .5)
     {
-        cout << "This sentence has a positive sentiment." << endl;
+        cout << true_label_meaning << endl;
         return vars.POS;
     }
     else
     {
-        cout << "This sentence has a neutral sentiment." << endl;
+        cout << "neutral" << endl;
         return vars.NEU;
     }
 }

@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    SimpleClassifier bc;
+    SimpleClassifier bc("positive", "negative");
     MyGlobalVars vars;
     bc.fit(vars.features_file, vars.labels_file);
     bc.shape();
