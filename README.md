@@ -36,4 +36,10 @@ The CountVectorizer is a standalone class that is only concerned with holding th
 
 ![Structure](static/structure.jpeg "Structure")
 
-NOTE: This is part of a dataset that was created for the Paper 'From Group to Individual Labels using Deep Features', Kotzias et. al,. KDD 2015
+### A note on data
+
+The training data must be in a specific format to be used in this library.  Two files, a "features" and "labels" file must be used as an input for the model to work.  The format is this:
+
+![data](static/data.jpeg "data")
+
+#### NOTE: This is part of a dataset that was created for the Paper 'From Group to Individual Labels using Deep Features', Kotzias et. al,. KDD 2015
