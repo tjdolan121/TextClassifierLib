@@ -1,4 +1,4 @@
-# Sentiment Analysis with CountVectorizer
+# Text Classification with CountVectorizer
 
 ## Project Goals
 1. To creatively implement a general-purpose text classifier
@@ -6,6 +6,17 @@
 3. To learn TDD
 
 ## Project Overview:
+
+### Getting Started
+
+Dependencies: cmake
+
+To run on Linux/Mac:
+1. Clone the repo
+2. In the project directory, I recommend creating a build folder: ```mkdir build```
+3. Run ```cd build```
+4. Run ```cmake ..```
+5. Finally, run ```make```
 
 ### Usage
 
